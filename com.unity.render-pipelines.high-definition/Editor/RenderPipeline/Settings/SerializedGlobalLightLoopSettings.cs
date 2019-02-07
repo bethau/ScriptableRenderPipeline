@@ -3,7 +3,7 @@ using UnityEngine.Experimental.Rendering.HDPipeline;
 
 namespace UnityEditor.Experimental.Rendering.HDPipeline
 {
-    class SerializedGlobalLightingSettings
+    class SerializedGlobalLightLoopSettings
     {
         public SerializedProperty root;
 
@@ -26,7 +26,7 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
         public SerializedProperty maxEnvLightsOnScreen;
         public SerializedProperty maxDecalsOnScreen;
 
-        public SerializedGlobalLightingSettings(SerializedProperty root)
+        public SerializedGlobalLightLoopSettings(SerializedProperty root)
         {
             this.root = root;
 

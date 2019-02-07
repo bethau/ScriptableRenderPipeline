@@ -116,6 +116,7 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
     [Serializable]
     public struct HDShadowInitParameters
     {
+        /// <summary>Default GlobalDynamicResolutionSettings</summary>
         public static readonly HDShadowInitParameters @default = new HDShadowInitParameters()
         {
             shadowAtlasResolution = k_DefaultShadowAtlasResolution,

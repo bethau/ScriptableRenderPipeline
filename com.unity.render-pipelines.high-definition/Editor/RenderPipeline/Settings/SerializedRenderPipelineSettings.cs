@@ -33,8 +33,8 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
 
         public SerializedProperty editorRaytracingFilterLayerMask;
 
-        public SerializedGlobalLightingSettings lightLoopSettings;
-        public SerializedHDShadowInitParameters shadowSettings;
+        public SerializedGlobalLightLoopSettings lightLoopSettings;
+        public SerializedHDShadowInitParameters hdShadowInitParams;
         public SerializedGlobalDecalSettings decalSettings;
         public SerializedGlobalPostProcessSettings postProcessSettings;
         public SerializedDynamicResolutionSettings dynamicResolutionSettings;
@@ -67,8 +67,8 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
             supportRayTracing               = root.Find((RenderPipelineSettings s) => s.supportRayTracing);
             editorRaytracingFilterLayerMask = root.Find((RenderPipelineSettings s) => s.editorRaytracingFilterLayerMask);
 
-            lightLoopSettings = new SerializedGlobalLightingSettings(root.Find((RenderPipelineSettings s) => s.lightLoopSettings));
-            shadowSettings = new SerializedHDShadowInitParameters(root.Find((RenderPipelineSettings s) => s.hdShadowInitParams));
+            lightLoopSettings = new SerializedGlobalLightLoopSettings(root.Find((RenderPipelineSettings s) => s.lightLoopSettings));
+            hdShadowInitParams = new SerializedHDShadowInitParameters(root.Find((RenderPipelineSettings s) => s.hdShadowInitParams));
             decalSettings     = new SerializedGlobalDecalSettings(root.Find((RenderPipelineSettings s) => s.decalSettings));
             postProcessSettings = new SerializedGlobalPostProcessSettings(root.Find((RenderPipelineSettings s) => s.postProcessSettings));
             dynamicResolutionSettings = new SerializedDynamicResolutionSettings(root.Find((RenderPipelineSettings s) => s.dynamicResolutionSettings));

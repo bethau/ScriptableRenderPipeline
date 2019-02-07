@@ -403,7 +403,7 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
 
         // shadow related stuff
         HDShadowManager                     m_ShadowManager;
-        HDShadowInitParameters              m_ShadowSettings;
+        HDShadowInitParameters              m_ShadowInitParameters;
 
 #if ENABLE_RAYTRACING
         HDRaytracingManager                 m_RayTracingManager;
@@ -434,13 +434,13 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
 
         void InitShadowSystem(HDRenderPipelineAsset hdAsset)
         {
-            m_ShadowSettings = hdAsset.currentPlatformRenderPipelineSettings.hdShadowInitParams;
+            m_ShadowInitParameters = hdAsset.currentPlatformRenderPipelineSettings.hdShadowInitParams;
             m_ShadowManager = new HDShadowManager(
                 hdAsset.renderPipelineResources,
-                m_ShadowSettings.shadowAtlasResolution,
-                m_ShadowSettings.shadowAtlasResolution,
-                m_ShadowSettings.maxShadowRequests,
-                m_ShadowSettings.shadowMapsDepthBits,
+                m_ShadowInitParameters.shadowAtlasResolution,
+                m_ShadowInitParameters.shadowAtlasResolution,
+                m_ShadowInitParameters.maxShadowRequests,
+                m_ShadowInitParameters.shadowMapsDepthBits,
                 hdAsset.renderPipelineResources.shaders.shadowClearPS
             );
         }
@@ -1786,7 +1786,7 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
                         var additionalData = GetHDAdditionalLightData(lightComponent);
 
                         // Reserve shadow map resolutions and check if light needs to render shadows
-                        additionalData.ReserveShadows(camera, m_ShadowManager, m_ShadowSettings, cullResults, m_FrameSettings, lightIndex);
+                        additionalData.ReserveShadows(camera, m_ShadowManager, m_ShadowInitParameters, cullResults, m_FrameSettings, lightIndex);
 
                         LightCategory lightCategory = LightCategory.Count;
                         GPULightType gpuLightType = GPULightType.Point;
