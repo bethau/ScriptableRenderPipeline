@@ -104,7 +104,7 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
         // This ensure immutability at runtime.
 
         // Store the various RenderPipelineSettings for each platform (for now only one)
-        [SerializeField]
+        [SerializeField, FormerlySerializedAs("renderPipelineSettings")]
         RenderPipelineSettings m_RenderPipelineSettings = RenderPipelineSettings.@default;
 
         // Return the current use RenderPipelineSettings (i.e for the current platform)
