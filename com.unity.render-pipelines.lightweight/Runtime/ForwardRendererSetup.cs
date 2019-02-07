@@ -100,13 +100,14 @@ namespace UnityEngine.Experimental.Rendering.LWRP
             bool requiresExplicitMsaaResolve = cameraData.msaaSamples > 1 && !SystemInfo.supportsMultisampleAutoResolve;
             bool isOffscreenRender = cameraData.camera.targetTexture != null && !cameraData.isSceneViewCamera;    
             bool isCapturing = cameraData.captureActions != null;
+            bool isInstancedStereo = cameraData.isStereoEnabled && (XRGraphics.stereoRenderingMode == XRGraphics.StereoRenderingMode.SinglePassInstanced);
 
             bool requiresBlitForOffscreenCamera = cameraData.postProcessEnabled || cameraData.requiresOpaqueTexture || requiresExplicitMsaaResolve;
             if (isOffscreenRender)
                 return requiresBlitForOffscreenCamera;
 
             return requiresBlitForOffscreenCamera || cameraData.isSceneViewCamera || isScaledRender || cameraData.isHdrEnabled ||
-                isTargetTexture2DArray || !cameraData.isDefaultViewport || isCapturing || Display.main.requiresBlitToBackbuffer
+                (isTargetTexture2DArray && !isInstancedStereo) || !cameraData.isDefaultViewport || isCapturing || Display.main.requiresBlitToBackbuffer
                     || renderingData.killAlphaInFinalBlit;
         }
 
@@ -155,7 +156,8 @@ namespace UnityEngine.Experimental.Rendering.LWRP
                                         (renderingData.cameraData.requiresDepthTexture && (!CanCopyDepth(ref renderingData.cameraData)));
 
             // For now VR requires a depth prepass until we figure out how to properly resolve texture2DMS in stereo
-            requiresDepthPrepass |= renderingData.cameraData.isStereoEnabled;
+            if(renderingData.cameraData.msaaSamples > 1)
+                requiresDepthPrepass |= renderingData.cameraData.isStereoEnabled;
 
             renderer.EnqueuePass(m_SetupForwardRenderingPass);
 
