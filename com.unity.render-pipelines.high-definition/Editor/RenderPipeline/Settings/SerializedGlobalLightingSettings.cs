@@ -25,45 +25,33 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
         public SerializedProperty maxAreaLightsOnScreen; 
         public SerializedProperty maxEnvLightsOnScreen;
         public SerializedProperty maxDecalsOnScreen;
-        
-        public SerializedProperty shadowAtlasResolution;
-        public SerializedProperty shadowMapDepthBits;
-        public SerializedProperty useDynamicViewportRescale;
-        public SerializedProperty maxShadowRequests;
-        public SerializedProperty shadowQuality;
 
         public SerializedGlobalLightingSettings(SerializedProperty root)
         {
             this.root = root;
 
-            cookieSize = root.Find((GlobalLightingSettings s) => s.cookieSize);
-            cookieTexArraySize = root.Find((GlobalLightingSettings s) => s.cookieTexArraySize);
-            pointCookieSize = root.Find((GlobalLightingSettings s) => s.pointCookieSize);
-            cubeCookieTexArraySize = root.Find((GlobalLightingSettings s) => s.cubeCookieTexArraySize);
+            cookieSize = root.Find((GlobalLightLoopSettings s) => s.cookieSize);
+            cookieTexArraySize = root.Find((GlobalLightLoopSettings s) => s.cookieTexArraySize);
+            pointCookieSize = root.Find((GlobalLightLoopSettings s) => s.pointCookieSize);
+            cubeCookieTexArraySize = root.Find((GlobalLightLoopSettings s) => s.cubeCookieTexArraySize);
 
-            reflectionProbeCacheSize = root.Find((GlobalLightingSettings s) => s.reflectionProbeCacheSize);
-            reflectionCubemapSize = root.Find((GlobalLightingSettings s) => s.reflectionCubemapSize);
-            reflectionCacheCompressed = root.Find((GlobalLightingSettings s) => s.reflectionCacheCompressed);
+            reflectionProbeCacheSize = root.Find((GlobalLightLoopSettings s) => s.reflectionProbeCacheSize);
+            reflectionCubemapSize = root.Find((GlobalLightLoopSettings s) => s.reflectionCubemapSize);
+            reflectionCacheCompressed = root.Find((GlobalLightLoopSettings s) => s.reflectionCacheCompressed);
 
-            planarReflectionProbeCacheSize = root.Find((GlobalLightingSettings s) => s.planarReflectionProbeCacheSize);
-            planarReflectionCubemapSize = root.Find((GlobalLightingSettings s) => s.planarReflectionTextureSize);
-            planarReflectionCacheCompressed = root.Find((GlobalLightingSettings s) => s.planarReflectionCacheCompressed);
+            planarReflectionProbeCacheSize = root.Find((GlobalLightLoopSettings s) => s.planarReflectionProbeCacheSize);
+            planarReflectionCubemapSize = root.Find((GlobalLightLoopSettings s) => s.planarReflectionTextureSize);
+            planarReflectionCacheCompressed = root.Find((GlobalLightLoopSettings s) => s.planarReflectionCacheCompressed);
 
-            skyReflectionSize = root.Find((GlobalLightingSettings s) => s.skyReflectionSize);
-            skyLightingOverrideLayerMask = root.Find((GlobalLightingSettings s) => s.skyLightingOverrideLayerMask);
-            supportFabricConvolution = root.Find((GlobalLightingSettings s) => s.supportFabricConvolution);
+            skyReflectionSize = root.Find((GlobalLightLoopSettings s) => s.skyReflectionSize);
+            skyLightingOverrideLayerMask = root.Find((GlobalLightLoopSettings s) => s.skyLightingOverrideLayerMask);
+            supportFabricConvolution = root.Find((GlobalLightLoopSettings s) => s.supportFabricConvolution);
 
-            maxDirectionalLightsOnScreen = root.Find((GlobalLightingSettings s) => s.maxDirectionalLightsOnScreen);
-            maxPunctualLightsOnScreen = root.Find((GlobalLightingSettings s) => s.maxPunctualLightsOnScreen);
-            maxAreaLightsOnScreen = root.Find((GlobalLightingSettings s) => s.maxAreaLightsOnScreen);
-            maxEnvLightsOnScreen = root.Find((GlobalLightingSettings s) => s.maxEnvLightsOnScreen);
-            maxDecalsOnScreen = root.Find((GlobalLightingSettings s) => s.maxDecalsOnScreen);
-
-            shadowAtlasResolution = root.Find((GlobalLightingSettings s) => s.shadowAtlasResolution);
-            shadowMapDepthBits = root.Find((GlobalLightingSettings s) => s.shadowMapsDepthBits);
-            useDynamicViewportRescale = root.Find((GlobalLightingSettings s) => s.dynamicViewportRescale);
-            maxShadowRequests = root.Find((GlobalLightingSettings s) => s.maxShadowRequests);
-            shadowQuality = root.Find((GlobalLightingSettings s) => s.shadowQuality);
+            maxDirectionalLightsOnScreen = root.Find((GlobalLightLoopSettings s) => s.maxDirectionalLightsOnScreen);
+            maxPunctualLightsOnScreen = root.Find((GlobalLightLoopSettings s) => s.maxPunctualLightsOnScreen);
+            maxAreaLightsOnScreen = root.Find((GlobalLightLoopSettings s) => s.maxAreaLightsOnScreen);
+            maxEnvLightsOnScreen = root.Find((GlobalLightLoopSettings s) => s.maxEnvLightsOnScreen);
+            maxDecalsOnScreen = root.Find((GlobalLightLoopSettings s) => s.maxDecalsOnScreen);
         }
     }
 }

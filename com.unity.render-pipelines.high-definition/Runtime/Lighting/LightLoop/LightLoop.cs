@@ -403,7 +403,7 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
 
         // shadow related stuff
         HDShadowManager                     m_ShadowManager;
-        GlobalLightingSettings             m_LightingSettings;
+        HDShadowInitParameters              m_ShadowSettings;
 
 #if ENABLE_RAYTRACING
         HDRaytracingManager                 m_RayTracingManager;
@@ -434,13 +434,13 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
 
         void InitShadowSystem(HDRenderPipelineAsset hdAsset)
         {
-            m_LightingSettings = hdAsset.currentPlatformRenderPipelineSettings.lightLoopSettings;
+            m_ShadowSettings = hdAsset.currentPlatformRenderPipelineSettings.hdShadowInitParams;
             m_ShadowManager = new HDShadowManager(
                 hdAsset.renderPipelineResources,
-                m_LightingSettings.shadowAtlasResolution,
-                m_LightingSettings.shadowAtlasResolution,
-                m_LightingSettings.maxShadowRequests,
-                m_LightingSettings.shadowMapsDepthBits,
+                m_ShadowSettings.shadowAtlasResolution,
+                m_ShadowSettings.shadowAtlasResolution,
+                m_ShadowSettings.maxShadowRequests,
+                m_ShadowSettings.shadowMapsDepthBits,
                 hdAsset.renderPipelineResources.shaders.shadowClearPS
             );
         }
@@ -506,7 +506,7 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
                 m_Env2DCaptureVP.Add(Matrix4x4.identity);
 
 
-            GlobalLightingSettings gLightLoopSettings = hdAsset.currentPlatformRenderPipelineSettings.lightLoopSettings;
+            GlobalLightLoopSettings gLightLoopSettings = hdAsset.currentPlatformRenderPipelineSettings.lightLoopSettings;
             m_CookieTexArray = new TextureCache2D("Cookie");
             int coockieSize = gLightLoopSettings.cookieTexArraySize;
             int coockieResolution = (int)gLightLoopSettings.cookieSize;
@@ -653,7 +653,7 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
             m_DefaultTextureCube.Apply();
 
             // Setup shadow algorithms
-            var shadowParams = hdAsset.currentPlatformRenderPipelineSettings.lightLoopSettings;
+            var shadowParams = hdAsset.currentPlatformRenderPipelineSettings.hdShadowInitParams;
             var shadowKeywords = new[]{"SHADOW_LOW", "SHADOW_MEDIUM", "SHADOW_HIGH", "SHADOW_VERY_HIGH"};
             foreach (var p in shadowKeywords)
                 Shader.DisableKeyword(p);
@@ -1786,7 +1786,7 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
                         var additionalData = GetHDAdditionalLightData(lightComponent);
 
                         // Reserve shadow map resolutions and check if light needs to render shadows
-                        additionalData.ReserveShadows(camera, m_ShadowManager, m_LightingSettings, cullResults, m_FrameSettings, lightIndex);
+                        additionalData.ReserveShadows(camera, m_ShadowManager, m_ShadowSettings, cullResults, m_FrameSettings, lightIndex);
 
                         LightCategory lightCategory = LightCategory.Count;
                         GPULightType gpuLightType = GPULightType.Point;

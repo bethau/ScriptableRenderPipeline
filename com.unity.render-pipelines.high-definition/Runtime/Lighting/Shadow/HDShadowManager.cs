@@ -113,6 +113,31 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
         IMS
     }
 
+    [Serializable]
+    public struct HDShadowInitParameters
+    {
+        public static readonly HDShadowInitParameters @default = new HDShadowInitParameters()
+        {
+            shadowAtlasResolution = k_DefaultShadowAtlasResolution,
+            maxShadowRequests = k_DefaultMaxShadowRequests,
+            shadowMapsDepthBits = k_DefaultShadowMapDepthBits,
+            useDynamicViewportRescale = true,
+        };
+
+        public const int k_DefaultShadowAtlasResolution = 4096;
+        public const int k_DefaultMaxShadowRequests = 128;
+        // TODO: 32 bit shadowmap are not supported by RThandle currently, when they will, change Depth24 to Depth32
+        public const DepthBits k_DefaultShadowMapDepthBits = DepthBits.Depth24;
+
+        [FormerlySerializedAs("shadowAtlasWidth")]
+        public int shadowAtlasResolution;
+        public int maxShadowRequests;
+        public DepthBits shadowMapsDepthBits;
+        public bool useDynamicViewportRescale;
+
+        public HDShadowQuality shadowQuality;
+    }
+
     public class HDShadowResolutionRequest
     {
         public Rect        atlasViewport;
@@ -165,7 +190,7 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
         public static DirectionalShadowAlgorithm GetDirectionaShadowAlgorithm()
         {
             var hdAsset = (GraphicsSettings.renderPipelineAsset as HDRenderPipelineAsset);
-            switch (hdAsset.currentPlatformRenderPipelineSettings.lightLoopSettings.shadowQuality)
+            switch (hdAsset.currentPlatformRenderPipelineSettings.hdShadowInitParams.shadowQuality)
             {
                 case HDShadowQuality.Low:
                 {
@@ -294,7 +319,7 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
 
 
             var hdAsset = (GraphicsSettings.renderPipelineAsset as HDRenderPipelineAsset);
-            if (hdAsset.currentPlatformRenderPipelineSettings.lightLoopSettings.shadowQuality == HDShadowQuality.VeryHigh && shadowRequest.lightType == (int)LightType.Directional)
+            if (hdAsset.currentPlatformRenderPipelineSettings.hdShadowInitParams.shadowQuality == HDShadowQuality.VeryHigh && shadowRequest.lightType == (int)LightType.Directional)
             {
                 data.shadowFilterParams0.x = shadowRequest.kernelSize;
                 data.shadowFilterParams0.y = shadowRequest.lightAngle;

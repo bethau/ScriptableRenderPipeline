@@ -60,10 +60,10 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
     }
 
     [Serializable]
-    public struct GlobalLightingSettings
+    public struct GlobalLightLoopSettings
     {
         /// <summary>Default GlobalDecalSettings</summary>
-        public static readonly GlobalLightingSettings @default = new GlobalLightingSettings()
+        public static readonly GlobalLightLoopSettings @default = new GlobalLightLoopSettings()
         {
             cookieSize = CookieResolution.CookieResolution128,
             cookieTexArraySize = 16,
@@ -77,11 +77,6 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
 
             skyReflectionSize = SkyResolution.SkyResolution256,
             skyLightingOverrideLayerMask = 0,
-
-            shadowAtlasResolution = k_DefaultShadowAtlasResolution,
-            maxShadowRequests = k_DefaultMaxShadowRequests,
-            shadowMapsDepthBits = k_DefaultShadowMapDepthBits,
-            dynamicViewportRescale = true,
 
             maxDirectionalLightsOnScreen = 16,
             maxPunctualLightsOnScreen = 512,
@@ -105,17 +100,6 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
         public SkyResolution skyReflectionSize;
         public LayerMask skyLightingOverrideLayerMask;
         public bool supportFabricConvolution;
-
-        public const int k_DefaultShadowAtlasResolution = 4096;
-        public const int k_DefaultMaxShadowRequests = 128;
-        // TODO: 32 bit shadowmap are not supported by RThandle currently, when they will, change Depth24 to Depth32
-        public const DepthBits k_DefaultShadowMapDepthBits = DepthBits.Depth24;
-
-        public int shadowAtlasResolution;
-        public int maxShadowRequests;
-        public DepthBits shadowMapsDepthBits;
-        public bool dynamicViewportRescale;
-        public HDShadowQuality shadowQuality;
 
         public int maxDirectionalLightsOnScreen;
         public int maxPunctualLightsOnScreen;
