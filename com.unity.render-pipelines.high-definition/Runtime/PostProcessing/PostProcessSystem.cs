@@ -325,7 +325,7 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
 
                     // Motion blur after depth of field for aesthetic reasons (better to see motion
                     // blurred bokeh rather than out of focus motion blur)
-                    if (m_MotionBlur.IsActive() && camera.camera.cameraType == CameraType.Game && !m_ResetHistory)
+                    if (m_MotionBlur.IsActive() && camera.camera.cameraType == CameraType.Game && !m_ResetHistory && Application.isPlaying)
                     {
                         using (new ProfilingSample(cmd, "Motion Blur", CustomSamplerId.MotionBlur.GetSampler()))
                         {
